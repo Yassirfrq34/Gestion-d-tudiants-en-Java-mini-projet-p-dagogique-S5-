@@ -1,24 +1,69 @@
-# Compiled class file
-*.class
+import java.util.ArrayList;
+import java.util.Scanner;
 
-# Log file
-*.log
+class Etudiant {
+    String nom;
+    int age;
+    double note;
 
-# BlueJ files
-*.ctxt
+    void Afficher() {
+        System.out.println(" " + nom + " " + age + " " + note);
+    }
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+    void Admis() {
+        if (note >= 10) {
+            System.out.println(nom + " est admis(e)");
+        } else {
+            System.out.println(nom + " n'est pas admis(e)");
+        }
+    }
+}
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+public class Main {
+    public static void main(String[] args) {
+        int n;
+        double somme = 0;
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+        ArrayList<Etudiant> e = new ArrayList<>();
+
+        System.out.print("Combien d’étudiants : ");
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        sc.nextLine(); // vider le buffer
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("\n--- Étudiant " + (i + 1) + " ---");
+
+            System.out.print("Nom : ");
+            String nom = sc.nextLine();
+
+            System.out.print("Âge : ");
+            int age = sc.nextInt();
+
+            System.out.print("Note : ");
+            double note = sc.nextDouble();
+            sc.nextLine(); // vider le buffer
+
+            Etudiant et = new Etudiant();
+            et.nom = nom;
+            et.age = age;
+            et.note = note;
+
+            e.add(et);
+            somme += note; // ajouter la note à la somme
+        }
+
+        // affichage
+        System.out.println("\n===== Résultats =====");
+        for (Etudiant et : e) {
+            et.Afficher();
+            et.Admis();
+        }
+
+        // moyenne de la classe
+        double moyenne = somme / e.size();
+        System.out.println("\nMoyenne de la classe : " + moyenne);
+
+        sc.close();
+    }
+}
